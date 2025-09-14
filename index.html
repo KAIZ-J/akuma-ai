@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akuma Ai</title>
+    <script src="https://js.puter.com/v2/"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Audiowide|Inter|Atma|Poppins|Montserrat"
+    />
+    <script
+      src="https://kit.fontawesome.com/9603c04a31.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <span id="close" onclick="closeNav()"
+        ><i class="fa-solid fa-close"></i
+      ></span>
+      <div style="height: 70px; width: 200px; z-index: -1">
+        <img
+          src="/logo.png"
+          alt="logo"
+          style="
+            object-fit: cover;
+            width: 100%;
+            transform: translateY(-40px);
+            z-index: -1;
+          "
+        />
+      </div>
+      <div>
+        <input type="input" placeholder="Search your chats" id="search-chat" />
+        <i class="fa-solid fa-search" id="search-icon"></i>
+        <div id="chats-holder"></div>
+      </div>
+      <div id="others-holder">
+        <button type="button">
+          <i class="fa-solid fa-gear"></i><span>Settings</span>
+        </button>
+        <button type="button">
+          <i class="fa-solid fa-user"></i><span>Account</span>
+        </button>
+      </div>
+    </nav>
+
+    <div id="header">
+      <button id="nav-btn" onclick="openNav()">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+      <span id="text">A<span>k</span>uma</span>
+      <div id="header-action-buttons">
+        <button type="button" id="pro-btn" onclick="openDialog()">
+          Get Pro <i class="fa-solid fa-wand-magic-sparkles" style="scale: 1;"></i>
+        </button>
+      </div>
+    </div>
+    <div id="input-holder">
+      <textarea
+        name=""
+        id="user-input"
+        placeholder="Ask anything"
+        oninput="checkInput(this)"
+      ></textarea>
+      <button onclick="addMessage()" id="addmessage-btn" disabled>
+        <i class="fa-solid fa-arrow-up"></i>
+      </button>
+    </div>
+    <div id="messages-holder">
+      <h1>What's on your mind?</h1>
+    </div>
+    <dialog id="pro-plan-dialog">
+      <p>Oops you can't afford it</p>
+      <button onclick="closeDialog(this)">Get out</button>
+    </dialog>
+    <script src="script.js"></script>
+  </body>
+</html>
