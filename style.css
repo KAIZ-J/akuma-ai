@@ -51,7 +51,7 @@
    border: none;
    outline: none;
    padding-left: 10px;
-  padding-inline-end: 20px;
+  padding-right: 60px;
    anchor-name: --input;
    font-size: 1rem;
    align-content: center;
@@ -310,10 +310,19 @@ border: none;
 height: 31px;
 position:relative;
 z-index: 0;
-transition: .3s ease;
+transition:transform .3s ease;
+animation: scaling .4s ease-in-out forwards;
+        }
+        @keyframes scaling {
+          0%{
+            scale:0;
+          }
+          100%{
+            scale: 1;
+          }
         }
            #pro-btn:hover{
-            scale: 1.08;
+            transform: scale(1.08);
            }
 #pro-plan-dialog{
   background-color: var(--background);

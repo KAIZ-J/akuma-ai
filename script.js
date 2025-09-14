@@ -74,14 +74,25 @@ currentChatObj.messages.push({ role: "assistant", content: response.message.cont
 console.log(response);
 let newElement = document.createElement("div");
 newElement.className="ai-text-message";
-newElement.textContent=response.message.content;
 messagesHolder.append(newElement);
+let length = response.message.content.length;
+let innum = 0;
+function loop(){
+if(length>innum){
+  newElement.textContent+=response.message.content[innum];
+    innum++
+   setTimeout(loop,10) 
+}
+}
+loop()
 newElement.scrollIntoView({behavior:"smooth"})
 chatsHolderFx(chats)
 addmessageBtn.innerHTML=`<i class="fa-solid fa-arrow-up"></i>`;
   }
   catch(err){
-console.log("error fetching problem",err)
+console.log("error fetching problem",err);
+messagesHolder.innerHTML+=`<div class="ai-text-message"><i>~Sorry coundn't generate response~</i></div>`
+addmessageBtn.innerHTML=`<i class="fa-solid fa-arrow-up"></i>`;
   }
   
 };
@@ -118,3 +129,13 @@ function newChat(){
         function closeDialog(elem){
           elem.parentElement.close()
         }
+       txt = "What's on your mind?";
+        let num =0;
+        function trail(txt){
+   document.getElementById("landing-text").textContent+=txt[num];
+   num++;
+   if(txt.length>num){
+ setTimeout(()=>trail(txt),30) 
+   }
+        }
+        trail(txt)
