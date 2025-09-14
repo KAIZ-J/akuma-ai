@@ -6,19 +6,23 @@ function openNav(){
           document.querySelector("nav").style.transform="translateX(-100%)";
         document.getElementById("close").classList.remove("active")
     }
-    let greetings = ["What's up","What's on your mind",""]
+    let greetings = ["What's up","What's on your mind",""];
+    let copyTxt = `<br><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i>`
     const addmessageBtn = document.getElementById("addmessage-btn");
     const ppd = document.getElementById("pro-plan-dialog")
     const chatsHolder= document.getElementById("chats-holder");
     const hab = document.getElementById("header-action-buttons")
         const messagesHolder = document.getElementById("messages-holder")
         const userInput=document.getElementById("user-input");
-        function checkInput(elem){
+        let generatingFinished = true;
+        function checkInput(){
         if(userInput.value===""){
         addmessageBtn.setAttribute("disabled",true)
         }
         else{
+          if(generatingFinished){
           addmessageBtn.removeAttribute("disabled")
+          }
         }
       }
         let currentChatId = "";
@@ -43,7 +47,7 @@ function openNav(){
           currentChatId = elem.id
           messagesHolder.innerHTML="";
           currentChatObj.messages.forEach(el=>{
-            messagesHolder.innerHTML+=`<div class="${el.role==="user"?"":"ai-text-message"}">${el.content}</div>`
+            messagesHolder.innerHTML+=`<div class="${el.role==="user"?"":"ai-text-message"}">${el.content} ${el.role==="user"?"":`${copyTxt}`}</div>`
              habFx(true);
           })
           
@@ -78,28 +82,43 @@ messagesHolder.append(newElement);
 let length = response.message.content.length;
 let innum = 0;
 function loop(){
+  if(length===innum){
+  newElement.innerHTML+=copyTxt
+generatingFinished=true;
+checkInput();
+} 
 if(length>innum){
   newElement.textContent+=response.message.content[innum];
     innum++
-   setTimeout(loop,10) 
+   setTimeout(loop,Math.floor(Math.random*15)) 
 }
+
 }
 loop()
 newElement.scrollIntoView({behavior:"smooth"})
 chatsHolderFx(chats)
 addmessageBtn.innerHTML=`<i class="fa-solid fa-arrow-up"></i>`;
+
   }
   catch(err){
 console.log("error fetching problem",err);
 messagesHolder.innerHTML+=`<div class="ai-text-message"><i>~Sorry coundn't generate response~</i></div>`
+generatingFinished=true;
 addmessageBtn.innerHTML=`<i class="fa-solid fa-arrow-up"></i>`;
   }
   
 };
 
-function addMessage(){  
+function addMessage(){ 
+  generatingFinished=false; 
     main(userInput.value);
     userInput.value=""
+}
+function copyMsg(elem){
+  let text = elem.parentElement.textContent;
+  navigator.clipboard.writeText(text);
+  elem.classList="fa-solid fa-check";
+  setTimeout(()=>{elem.classList="fa-solid fa-copy"},800)
 }
 function newChat(){
   messagesHolder.innerHTML=`<h1
