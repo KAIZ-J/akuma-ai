@@ -26,7 +26,7 @@ function openNav(){
         }
       }
         let currentChatId = "";
-        let chats =JSON.parse(localStorage.getItem("chats")) || [{chatId:"chat-4543459467",messages:[
+        let chats = [{chatId:"chat-4543459467",messages:[
             { role: "user", content: "Hello there" },
             { role: "assistant", content: "Hi Fazi,How can i help you" },
             { role: "user", content: "Who invented cellphones?" },
@@ -60,8 +60,7 @@ const main = async (userPrompt) => {
         messages:[]
       }
       chats.unshift(obj);
-      localStorage.setItem("chats",JSON.stringify(chats))
-      currentChatId=obj.chatId;
+  currentChatId=obj.chatId;
        messagesHolder.innerHTML=""
     }
     console.log(userInput.value)
