@@ -7,7 +7,7 @@ function openNav(){
         document.getElementById("close").classList.remove("active")
     }
     let greetings = ["What's up","What's on your mind",""];
-    let copyTxt = `<br><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i>`
+    let copyTxt = `<br><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i> <i class="fa-solid fa-share" onclick="shareMsg(this)" style="cursor:pointer"></i>`
     const addmessageBtn = document.getElementById("addmessage-btn");
     const ppd = document.getElementById("pro-plan-dialog")
     const chatsHolder= document.getElementById("chats-holder");
@@ -26,7 +26,7 @@ function openNav(){
         }
       }
         let currentChatId = "";
-        let chats = [{chatId:"chat-4543459467",messages:[
+        let chats = JSON.parse(localStorage.getItem("mychats")) || [{chatId:"chat-4543459467",messages:[
             { role: "user", content: "Hello there" },
             { role: "assistant", content: "Hi Fazi,How can i help you" },
             { role: "user", content: "Who invented cellphones?" },
@@ -71,14 +71,16 @@ const main = async (userPrompt) => {
      let index = chats.findIndex(el=>el.chatId===currentChatId);
           let currentChatObj = chats[index];
     currentChatObj.messages.push({ role: "user", content: userPrompt });
+    let newElement = document.createElement("div");
+newElement.className="ai-text-message";
+messagesHolder.append(newElement);
+newElement.innerHTML=`<p id="dots">Thinking</p>`;
 const response = await puter.ai.chat(
   currentChatObj.messages
 , { model: "gpt-5-nano" });
 currentChatObj.messages.push({ role: "assistant", content: response.message.content });
 console.log(response);
-let newElement = document.createElement("div");
-newElement.className="ai-text-message";
-messagesHolder.append(newElement);
+newElement.innerHTML="";
 let length = response.message.content.length;
 let innum = 0;
 function loop(){
@@ -98,11 +100,12 @@ loop()
 newElement.scrollIntoView({behavior:"smooth"})
 chatsHolderFx(chats)
 addmessageBtn.innerHTML=`<i class="fa-solid fa-arrow-up"></i>`;
-
+localStorage.setItem("mychats",JSON.stringify(chats))
   }
   catch(err){
 console.log("error fetching problem",err);
 messagesHolder.innerHTML+=`<div class="ai-text-message"><i>~Sorry coundn't generate response~</i></div>`
+currentChatObj.messages.push({ role: "assistant", content: "~Sorry coundn't generate response~" });
 generatingFinished=true;
 addmessageBtn.innerHTML=`<i class="fa-solid fa-arrow-up"></i>`;
   }
@@ -119,6 +122,20 @@ function copyMsg(elem){
   navigator.clipboard.writeText(text);
   elem.classList="fa-solid fa-check";
   setTimeout(()=>{elem.classList="fa-solid fa-copy"},800)
+}
+async function shareMsg(elem){
+  let txt = elem.parentElement.textContent;
+  let shareData=
+  {
+    title:"Akuma AI",
+    text:`${txt}`
+  }
+  try{
+ await navigator.share(shareData)
+  }
+  catch(err){
+
+  }
 }
 function newChat(){
   messagesHolder.innerHTML=`<h1
@@ -137,7 +154,7 @@ function newChat(){
 }
         function habFx(bool){
           bool?hab.innerHTML=`<button type="button" onclick="newChat()" class="hab-btn">
-          <i class="fa-solid fa-pen-to-square"></i>
+          <i class="fa-regular fa-pen-to-square"></i>
         </button>
         <button class="hab-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>`:
         hab.innerHTML=`<button type="button" id="pro-btn" onclick="openDialog()">Get Pro <i class="fa-solid fa-wand-magic-sparkles" style="scale: 1;"></i></button>`
