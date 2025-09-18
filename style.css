@@ -355,7 +355,57 @@ content: '..';
        }
        #header-action-buttons{
         display: flex;
-        gap: 10px;
+        gap: 5px;
         align-items: center;
         justify-content: center;
+       }
+
+       #temp-holder{
+      position: fixed;
+       position: fixed;
+            bottom: 6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 300px;
+            background-color: #dcc1c1;
+            height: 50px;
+            border-radius: 1em;
+       }
+       #temp-holder input{
+        width: 25px;
+        height: 25px; 
+        cursor: pointer;
+        border-radius: .5em;
+       }
+
+        #scaling-dots{
+            display: flex;
+            gap: 5px;
+        }
+        #scaling-dots span{
+            width: .5em;
+            height: .5em;
+            background-color: #dedede;
+            border-radius: .5em;
+             transition: transform .3s ease;
+        animation: scalingdots .5s ease infinite alternate ;
+        }
+         #scaling-dots span:nth-child(1){
+        animation-delay: .2s;
+         }
+         #scaling-dots span:nth-child(2){
+        animation-delay: 1s;
+         }
+        #scaling-dots span:nth-child(3){
+        animation-delay: .8s;
+         }
+       @keyframes scalingdots {
+        0%{
+            transform: scale(1)
+        }
+        100%{
+            transform: scale(1.35)
+        }
        }

@@ -7,7 +7,13 @@ function openNav(){
         document.getElementById("close").classList.remove("active")
     }
     let greetings = ["What's up","What's on your mind",""];
-    let copyTxt = `<br><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i> <i class="fa-solid fa-share" onclick="shareMsg(this)" style="cursor:pointer"></i>`
+    let copyTxt = `<br><span style=" display: flex;
+        gap: 7px;margin-top:5px;
+        align-items: center; "><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i> <i class="fa-solid fa-share" onclick="shareMsg(this)" style="cursor:pointer"></i>
+        <i class="fa-regular fa-thumbs-up" onclick="shareMsg(this)" style="cursor:pointer"></i>
+          <i class="fa-regular fa-thumbs-down" onclick="shareMsg(this)" style="cursor:pointer"></i>
+          <i class="fa-solid fa-rotate" onclick="shareMsg(this)" style="cursor:pointer"></i>
+        </span>`
     const addmessageBtn = document.getElementById("addmessage-btn");
     const ppd = document.getElementById("pro-plan-dialog")
     const chatsHolder= document.getElementById("chats-holder");
@@ -74,7 +80,7 @@ const main = async (userPrompt) => {
     let newElement = document.createElement("div");
 newElement.className="ai-text-message";
 messagesHolder.append(newElement);
-newElement.innerHTML=`<p id="dots">Thinking</p>`;
+newElement.innerHTML=`<p id="scaling-dots"><span></span><span></span><span></span></p>`;
 const response = await puter.ai.chat(
   currentChatObj.messages
 , { model: "gpt-5-nano" });
@@ -165,7 +171,7 @@ function newChat(){
         function closeDialog(elem){
           elem.parentElement.close()
         }
-       txt = "What's on your mind?";
+       txt = "What's on your mind?"; 
         let num =0;
         function trail(txt){
    document.getElementById("landing-text").textContent+=txt[num];
