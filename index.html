@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <nav>
+    <div id="overlay">
+  <nav>
       <span id="close" onclick="closeNav()"
         ><i class="fa-solid fa-close"></i
       ></span>
@@ -50,8 +51,10 @@
         </button>
       </div>
     </nav>
-
-    <div id="header">
+    </div>
+  
+<main id="main">
+<div id="header">
       <button id="nav-btn" onclick="openNav()">
         <i class="fa-solid fa-bars-staggered"></i>
       </button>
@@ -62,6 +65,11 @@
         </button>
       </div>
     </div>
+    <div id="messages-holder">
+      <!-- <h1 id="landing-text"></h1> --> 
+    </div> 
+</main>
+    
     <div id="input-holder">
       <textarea
         name=""
@@ -73,17 +81,12 @@
         <i class="fa-solid fa-arrow-up"></i>
       </button>
     </div>
-    <div id="messages-holder">
-      <h1 id="landing-text"></h1>
-    </div>
+    
     <dialog id="pro-plan-dialog">
       <p>Oops you can't afford it</p>
       <button onclick="closeDialog(this)">Get out</button>
     </dialog>
-    <!-- <div id="temp-holder">
-      <input type="checkbox" name="" id="">
-      <p>Temporary Chat</p>
-    </div> -->
+ 
     <script src="script.js"></script>
   </body>
 </html>

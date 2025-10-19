@@ -1,17 +1,20 @@
 function openNav(){
-        document.querySelector("nav").style.transform="translateX(0%)";
+  document.getElementById("overlay").style.display="flex"
+        document.querySelector("nav").style.scale="1";
+        document.querySelector("nav").style.opacity="1"; 
         document.getElementById("close").classList.add("active");
     }
     function closeNav(){
-          document.querySelector("nav").style.transform="translateX(-100%)";
+      document.getElementById("overlay").style.display="none"
+         document.querySelector("nav").style.scale="0"; 
+        document.querySelector("nav").style.opacity="0";  
         document.getElementById("close").classList.remove("active")
     }
     let greetings = ["What's up","What's on your mind",""];
-    let copyTxt = `<br><span style=" display: flex;
-        gap: 7px;margin-top:5px;
-        align-items: center; "><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i> <i class="fa-solid fa-share" onclick="shareMsg(this)" style="cursor:pointer"></i>
+    let copyTxt = `<br><span class="msg-extras"><i class="fa-solid fa-copy" onclick="copyMsg(this)" style="cursor:pointer"></i> <i class="fa-solid fa-share" onclick="shareMsg(this)" style="cursor:pointer"></i>
         <i class="fa-regular fa-thumbs-up" onclick="shareMsg(this)" style="cursor:pointer"></i>
-          <i class="fa-regular fa-thumbs-down" onclick="shareMsg(this)" style="cursor:pointer"></i>
+         <i class="fa-regular fa-thumbs-down" onclick="shareMsg(this)" style="cursor:pointer"></i>
+          <i class="fa-solid fa-volume-high" onclick="shareMsg(this)" style="cursor:pointer"></i>
           <i class="fa-solid fa-rotate" onclick="shareMsg(this)" style="cursor:pointer"></i>
         </span>`
     const addmessageBtn = document.getElementById("addmessage-btn");
